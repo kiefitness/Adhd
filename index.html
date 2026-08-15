@@ -1,0 +1,751 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>成人 ADHD 學習狀態全解析 (4:5 高清可下載卡片)</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <!-- html2canvas 用於一鍵下載圖片 -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <style>
+        :root {
+            --bg-paper: #FAF8F5; /* 暖米白質感底色 */
+            --card-bg: #FFFFFF;
+            --text-main: #111827; /* 超高對比深黑字 */
+            --text-sub: #374151; /* 清晰次要文字 */
+            --sage-green: #3B6E58; /* 加深鼠尾草綠，提高清晰度 */
+            --sage-bg: #EAF2ED;
+            --ochre-yellow: #B86B27; /* 加深赭黃色 */
+            --ochre-bg: #FAF0E6;
+            --border-line: #D1D5DB;
+            --border-dark: #1F2937;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: #E5E7EB;
+            font-family: 'Noto Sans TC', -apple-system, BlinkMacSystemFont, sans-serif;
+            color: var(--text-main);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 24px 12px;
+        }
+
+        /* 頂部控制面板 */
+        .top-bar {
+            width: 100%;
+            max-width: 500px;
+            background: #FFFFFF;
+            padding: 14px 20px;
+            border-radius: 16px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 20px;
+            position: sticky;
+            top: 12px;
+            z-index: 100;
+        }
+
+        .top-bar .info {
+            font-size: 15px;
+            font-weight: 700;
+            color: var(--text-main);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-download-all {
+            background-color: var(--sage-green);
+            color: #FFFFFF;
+            border: none;
+            padding: 10px 16px;
+            border-radius: 10px;
+            font-size: 14px;
+            font-weight: 700;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.2s ease;
+        }
+
+        .btn-download-all:hover {
+            background-color: #2D5443;
+            transform: translateY(-1px);
+        }
+
+        .btn-download-all:disabled {
+            background-color: #9CA3AF;
+            cursor: wait;
+        }
+
+        /* 卡片長廊列表 */
+        .cards-wrapper {
+            width: 100%;
+            max-width: 500px;
+            display: flex;
+            flex-direction: column;
+            gap: 36px;
+        }
+
+        /* 4:5 比例卡片本體 */
+        .card-item {
+            width: 100%;
+            aspect-ratio: 4 / 5; /* 確保 4:5 比例 (如 1080 x 1350) */
+            background-color: var(--bg-paper);
+            border-radius: 24px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+            border: 2px solid #E5E7EB;
+            padding: 28px 24px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* 卡片背景線條紋理 */
+        .card-item::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-image: radial-gradient(#9CA3AF 0.8px, transparent 0.8px);
+            background-size: 20px 20px;
+            opacity: 0.15;
+            pointer-events: none;
+        }
+
+        /* 卡片標頭 */
+        .card-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: relative;
+            z-index: 2;
+        }
+
+        .tag-badge {
+            background-color: var(--sage-bg);
+            color: var(--sage-green);
+            border: 1.5px solid var(--sage-green);
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 700;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .tag-badge.ochre {
+            background-color: var(--ochre-bg);
+            color: var(--ochre-yellow);
+            border-color: var(--ochre-yellow);
+        }
+
+        .btn-card-download {
+            background: #FFFFFF;
+            border: 1.5px solid var(--border-dark);
+            color: var(--border-dark);
+            padding: 6px 12px;
+            border-radius: 8px;
+            font-size: 12px;
+            font-weight: 700;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            transition: all 0.2s;
+        }
+
+        .btn-card-download:hover {
+            background: var(--border-dark);
+            color: #FFFFFF;
+        }
+
+        /* 卡片內容區 */
+        .card-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            gap: 16px;
+            margin: 16px 0;
+            position: relative;
+            z-index: 2;
+        }
+
+        /* 核心大標題 (極致清晰) */
+        .main-title {
+            font-size: 25px;
+            font-weight: 900;
+            color: var(--text-main);
+            line-height: 1.35;
+            letter-spacing: -0.2px;
+        }
+
+        .main-title .hl-ochre {
+            color: var(--ochre-yellow);
+            background: rgba(184, 107, 39, 0.12);
+            padding: 2px 6px;
+            border-radius: 6px;
+        }
+
+        .main-title .hl-green {
+            color: var(--sage-green);
+            background: rgba(59, 110, 88, 0.12);
+            padding: 2px 6px;
+            border-radius: 6px;
+        }
+
+        /* 模組化單元卡片 (強調高可讀性) */
+        .info-box {
+            background: var(--card-bg);
+            border: 2px solid var(--border-dark);
+            border-radius: 16px;
+            padding: 16px 18px;
+            box-shadow: 3px 3px 0px var(--border-dark);
+        }
+
+        .info-box.sage-theme {
+            border-color: var(--sage-green);
+            box-shadow: 3px 3px 0px var(--sage-green);
+        }
+
+        .info-box.ochre-theme {
+            border-color: var(--ochre-yellow);
+            box-shadow: 3px 3px 0px var(--ochre-yellow);
+        }
+
+        .box-title {
+            font-size: 16px;
+            font-weight: 900;
+            color: var(--text-main);
+            margin-bottom: 6px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .box-desc {
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--text-sub);
+            line-height: 1.55;
+        }
+
+        /* 視覺插畫容器 */
+        .illustration-box {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 10px 0;
+        }
+
+        .illustration-box svg {
+            max-width: 100%;
+            height: auto;
+        }
+
+        /* 網格區塊 (Slide 6) */
+        .grid-2x2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+
+        .grid-item {
+            background: #FFFFFF;
+            border: 2px solid var(--border-dark);
+            border-radius: 12px;
+            padding: 12px;
+            text-align: center;
+            box-shadow: 2px 2px 0px var(--border-dark);
+        }
+
+        .grid-item i {
+            font-size: 22px;
+            color: var(--ochre-yellow);
+            margin-bottom: 6px;
+        }
+
+        .grid-item h4 {
+            font-size: 14px;
+            font-weight: 900;
+            color: var(--text-main);
+            margin-bottom: 4px;
+        }
+
+        .grid-item p {
+            font-size: 12px;
+            font-weight: 500;
+            color: var(--text-sub);
+            line-height: 1.3;
+        }
+
+        /* 條列清單 (Slide 7) */
+        .action-list {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .action-item {
+            background: #FFFFFF;
+            border: 2px solid var(--sage-green);
+            border-radius: 12px;
+            padding: 12px 14px;
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            font-size: 13.5px;
+            font-weight: 500;
+            color: var(--text-main);
+            line-height: 1.45;
+        }
+
+        .action-item i {
+            color: var(--sage-green);
+            font-size: 16px;
+            margin-top: 2px;
+        }
+
+        /* 卡片頁尾 */
+        .card-footer {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding-top: 12px;
+            border-top: 2px stroke var(--border-line);
+            font-size: 12px;
+            font-weight: 700;
+            color: var(--text-sub);
+            position: relative;
+            z-index: 2;
+        }
+
+        @media (max-width: 480px) {
+            body { padding: 12px 6px; }
+            .card-item { padding: 22px 18px; }
+            .main-title { font-size: 22px; }
+            .box-title { font-size: 15px; }
+            .box-desc { font-size: 13px; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- 頂部控制列 -->
+    <div class="top-bar">
+        <div class="info">
+            <i class="fa-solid fa-mobile-screen" style="color: var(--ochre-yellow);"></i>
+            <span>4:5 成人 ADHD 學習圖文</span>
+        </div>
+        <button class="btn-download-all" id="downloadAllBtn">
+            <i class="fa-solid fa-file-arrow-down"></i>
+            <span>下載全部 7 張圖</span>
+        </button>
+    </div>
+
+    <!-- 卡片展示容器 -->
+    <div class="cards-wrapper">
+
+        <!-- CARD 1: 封面 -->
+        <div class="card-item" id="card-1">
+            <div class="card-header">
+                <span class="tag-badge ochre">
+                    <i class="fa-solid fa-brain"></i> 認知心理學指南
+                </span>
+                <button class="btn-card-download" onclick="downloadSingleCard('card-1', '01_ADHD_封面.png')">
+                    <i class="fa-solid fa-download"></i> 下載 PNG
+                </button>
+            </div>
+
+            <div class="card-content">
+                <h1 class="main-title" style="text-align: center; font-size: 26px;">
+                    成人 ADHD 並非「完全無法專注」<br>
+                    <span style="font-size: 20px; font-weight: 700; color: var(--text-sub); display: block; margin-top: 8px;">
+                        而是<span class="hl-ochre">「專注力調節機制障礙」</span>
+                    </span>
+                </h1>
+
+                <!-- 手繪風腦部與調控鈕 SVG -->
+                <div class="illustration-box">
+                    <svg width="220" height="150" viewBox="0 0 220 150" fill="none">
+                        <path d="M40 75 C25 55, 35 20, 75 20 C95 10, 125 10, 145 30 C175 20, 185 55, 175 75 C195 95, 175 130, 145 130 C115 140, 85 130, 65 120 C35 120, 25 95, 40 75 Z" fill="#FAF0E6" stroke="#1F2937" stroke-width="3" stroke-linejoin="round"/>
+                        <circle cx="110" cy="80" r="30" fill="#FFFFFF" stroke="#B86B27" stroke-width="3.5"/>
+                        <line x1="110" y1="80" x2="128" y2="62" stroke="#B86B27" stroke-width="4" stroke-linecap="round"/>
+                        <circle cx="110" cy="80" r="5" fill="#1F2937"/>
+                        <path d="M75 55 Q110 35 145 55" stroke="#3B6E58" stroke-width="3" stroke-dasharray="4 3" fill="none"/>
+                        <text x="110" y="132" font-size="12" font-weight="900" fill="#3B6E58" text-anchor="middle">多巴胺分泌與調節困難</text>
+                    </svg>
+                </div>
+
+                <div class="info-box ochre-theme">
+                    <div class="box-title">
+                        <i class="fa-solid fa-lightbulb" style="color: var(--ochre-yellow);"></i>
+                        核心認知觀念
+                    </div>
+                    <div class="box-desc">
+                        大腦並非缺乏專注的能量，而是缺少穩定將注意力「指派與定速」於特定任務的控制開關。
+                    </div>
+                </div>
+            </div>
+
+            <div class="card-footer">
+                <span>ADHD Learning Profile</span>
+                <span>01 / 07</span>
+            </div>
+        </div>
+
+        <!-- CARD 2: 極端的專注力模式 -->
+        <div class="card-item" id="card-2">
+            <div class="card-header">
+                <span class="tag-badge">
+                    <i class="fa-solid fa-bolt"></i> 學習特質 01
+                </span>
+                <button class="btn-card-download" onclick="downloadSingleCard('card-2', '02_極端專注力模式.png')">
+                    <i class="fa-solid fa-download"></i> 下載 PNG
+                </button>
+            </div>
+
+            <div class="card-content">
+                <h2 class="main-title">
+                    1. 極端的專注力模式：<br>
+                    <span class="hl-ochre">拖延與超專注 (Hyperfocus) 並存</span>
+                </h2>
+
+                <div class="info-box ochre-theme">
+                    <div class="box-title">
+                        <i class="fa-solid fa-circle-pause" style="color: var(--ochre-yellow);"></i>
+                        困難啟動 (Task Initiation)
+                    </div>
+                    <div class="box-desc">
+                        面對不感興趣、結構複雜或需長期投入的任務時，大腦難以分泌足夠多巴胺啟動行為，常陷入嚴重拖延。
+                    </div>
+                </div>
+
+                <div style="text-align: center; color: var(--sage-green); font-size: 20px;">
+                    <i class="fa-solid fa-arrow-down-up-between-down"></i>
+                </div>
+
+                <div class="info-box sage-theme">
+                    <div class="box-title">
+                        <i class="fa-solid fa-fire" style="color: var(--sage-green);"></i>
+                        超專注狀態 (Hyperfocus)
+                    </div>
+                    <div class="box-desc">
+                        一旦遇到極度感興趣的課題，或面臨 Deadline 的極大威脅時，大腦能在短時間內展現驚人的爆發力與吸收效率。
+                    </div>
+                </div>
+            </div>
+
+            <div class="card-footer">
+                <span>Focus Regulation</span>
+                <span>02 / 07</span>
+            </div>
+        </div>
+
+        <!-- CARD 3: 工作記憶障礙 -->
+        <div class="card-item" id="card-3">
+            <div class="card-header">
+                <span class="tag-badge ochre">
+                    <i class="fa-solid fa-box-archive"></i> 學習特質 02
+                </span>
+                <button class="btn-card-download" onclick="downloadSingleCard('card-3', '03_工作記憶障礙.png')">
+                    <i class="fa-solid fa-download"></i> 下載 PNG
+                </button>
+            </div>
+
+            <div class="card-content">
+                <h2 class="main-title">
+                    2. 工作記憶障礙<br>
+                    <span style="font-size: 16px; color: var(--text-sub); font-weight: 500;">(Working Memory Deficits)</span>
+                </h2>
+
+                <div class="info-box sage-theme">
+                    <div class="box-title">
+                        <i class="fa-solid fa-book-open-reader" style="color: var(--sage-green);"></i>
+                        閱讀效率低：無法整合前文
+                    </div>
+                    <div class="box-desc">
+                        閱讀長篇文章或教科書時，難以暫存資訊，常出現「字看得進去，卻沒讀進腦袋」，需要重複閱讀同一段落。
+                    </div>
+                </div>
+
+                <div class="info-box ochre-theme">
+                    <div class="box-title">
+                        <i class="fa-solid fa-rectangle-list" style="color: var(--ochre-yellow);"></i>
+                        容易遺忘關鍵指令
+                    </div>
+                    <div class="box-desc">
+                        聽講或閱讀時，若缺乏視覺化筆記輔助，極易遺漏多步驟的 instructions 或公式細節。
+                    </div>
+                </div>
+            </div>
+
+            <div class="card-footer">
+                <span>Working Memory</span>
+                <span>03 / 07</span>
+            </div>
+        </div>
+
+        <!-- CARD 4: 時間感缺失 -->
+        <div class="card-item" id="card-4">
+            <div class="card-header">
+                <span class="tag-badge">
+                    <i class="fa-regular fa-clock"></i> 學習特質 03
+                </span>
+                <button class="btn-card-download" onclick="downloadSingleCard('card-4', '04_時間感缺失.png')">
+                    <i class="fa-solid fa-download"></i> 下載 PNG
+                </button>
+            </div>
+
+            <div class="card-content">
+                <h2 class="main-title">
+                    3. 組織規劃與時間感缺失<br>
+                    <span class="hl-ochre">(Time Blindness)</span>
+                </h2>
+
+                <div class="info-box ochre-theme">
+                    <div class="box-title">
+                        <i class="fa-solid fa-hourglass-half" style="color: var(--ochre-yellow);"></i>
+                        時間感知失真
+                    </div>
+                    <div class="box-desc">
+                        難以準確預估完成一項研讀任務或作業所需的時間，導致原本安排的學習時程表形同虛設。
+                    </div>
+                </div>
+
+                <div class="info-box sage-theme">
+                    <div class="box-title">
+                        <i class="fa-solid fa-chart-line-down" style="color: var(--sage-green);"></i>
+                        三分鐘熱度 (Lack of Follow-Through)
+                    </div>
+                    <div class="box-desc">
+                        剛接觸新領域時充滿熱情（購買大量書籍或課程），但當新鮮感消退、進入枯燥複習階段時，極難維持動力。
+                    </div>
+                </div>
+            </div>
+
+            <div class="card-footer">
+                <span>Time Planning</span>
+                <span>04 / 07</span>
+            </div>
+        </div>
+
+        <!-- CARD 5: 精神消耗 -->
+        <div class="card-item" id="card-5">
+            <div class="card-header">
+                <span class="tag-badge ochre">
+                    <i class="fa-solid fa-battery-quarter"></i> 學習特質 04
+                </span>
+                <button class="btn-card-download" onclick="downloadSingleCard('card-5', '05_高昂精神消耗.png')">
+                    <i class="fa-solid fa-download"></i> 下載 PNG
+                </button>
+            </div>
+
+            <div class="card-content">
+                <h2 class="main-title">
+                    4. 思維飄忽與高昂精神消耗<br>
+                    <span style="font-size: 16px; color: var(--text-sub); font-weight: 500;">(Ceaseless Mental Noise)</span>
+                </h2>
+
+                <div class="info-box sage-theme" style="padding: 18px;">
+                    <div class="box-title">
+                        <i class="fa-solid fa-comments" style="color: var(--sage-green);"></i>
+                        腦中無休止的背景雜音
+                    </div>
+                    <div class="box-desc" style="font-size: 14.5px;">
+                        靜心讀書時，腦中會持續浮現無關的雜念 (Wandering Mind)。為了將注意力拉回課本，需要耗費龐大的意志力與心理能量。
+                    </div>
+                </div>
+
+                <div class="info-box ochre-theme">
+                    <div class="box-title" style="color: var(--ochre-yellow);">
+                        <i class="fa-solid fa-triangle-exclamation"></i>
+                        極易產生身心疲憊感
+                    </div>
+                    <div class="box-desc">
+                        這並非意志力薄弱，而是大腦背景過濾機制需要額外高強度運轉所帶來的生理疲勞。
+                    </div>
+                </div>
+            </div>
+
+            <div class="card-footer">
+                <span>Internal Noise</span>
+                <span>05 / 07</span>
+            </div>
+        </div>
+
+        <!-- CARD 6: 潛在學習優勢 -->
+        <div class="card-item" id="card-6">
+            <div class="card-header">
+                <span class="tag-badge">
+                    <i class="fa-solid fa-wand-magic-sparkles"></i> 學習特質 05
+                </span>
+                <button class="btn-card-download" onclick="downloadSingleCard('card-6', '06_潛在學習優勢.png')">
+                    <i class="fa-solid fa-download"></i> 下載 PNG
+                </button>
+            </div>
+
+            <div class="card-content">
+                <h2 class="main-title">
+                    5. 潛在的學習優勢<br>
+                    <span class="hl-green">(Potential Strengths)</span>
+                </h2>
+
+                <p style="font-size: 13.5px; font-weight: 700; color: var(--text-sub); margin-bottom: 4px;">
+                    若能找到感興趣的領域或適合的工具，ADHD 成人常展現出：
+                </p>
+
+                <div class="grid-2x2">
+                    <div class="grid-item">
+                        <i class="fa-solid fa-diagram-project"></i>
+                        <h4>發散性思維</h4>
+                        <p>Divergent Thinking 跳躍想像</p>
+                    </div>
+                    <div class="grid-item">
+                        <i class="fa-solid fa-link"></i>
+                        <h4>跨領域連結</h4>
+                        <p>優異的概念組合能力</p>
+                    </div>
+                    <div class="grid-item">
+                        <i class="fa-solid fa-lightbulb"></i>
+                        <h4>創新解題</h4>
+                        <p>突破傳統框架的視角</p>
+                    </div>
+                    <div class="grid-item">
+                        <i class="fa-solid fa-palette"></i>
+                        <h4>高度創造力</h4>
+                        <p>感興趣領域展現極致原創</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card-footer">
+                <span>Unique Strengths</span>
+                <span>06 / 07</span>
+            </div>
+        </div>
+
+        <!-- CARD 7: 總結與行動建議 -->
+        <div class="card-item" id="card-7">
+            <div class="card-header">
+                <span class="tag-badge ochre">
+                    <i class="fa-solid fa-circle-check"></i> 行動指南
+                </span>
+                <button class="btn-card-download" onclick="downloadSingleCard('card-7', '07_總結與行動指南.png')">
+                    <i class="fa-solid fa-download"></i> 下載 PNG
+                </button>
+            </div>
+
+            <div class="card-content">
+                <h2 class="main-title">
+                    理解 ADHD 大腦：<br>
+                    <span class="hl-ochre">重塑適合自己的學習動線</span>
+                </h2>
+
+                <div class="action-list">
+                    <div class="action-item">
+                        <i class="fa-solid fa-check"></i>
+                        <div><strong>視覺化外掛：</strong>心智圖與顏色圖卡替代純文字筆記。</div>
+                    </div>
+                    <div class="action-item">
+                        <i class="fa-solid fa-check"></i>
+                        <div><strong>微型啟動：</strong>設定「只讀 5 分鐘」，降低多巴胺門檻。</div>
+                    </div>
+                    <div class="action-item">
+                        <i class="fa-solid fa-check"></i>
+                        <div><strong>具象化時間：</strong>使用沙漏或計時器建立實體時間感。</div>
+                    </div>
+                </div>
+
+                <div style="background: var(--sage-bg); border: 2px dashed var(--sage-green); padding: 14px; border-radius: 14px; text-align: center; margin-top: 6px;">
+                    <p style="font-size: 14px; font-weight: 900; color: var(--sage-green);">
+                        「並非專注力不夠，而是需要對的啟動鑰匙。」
+                    </p>
+                </div>
+            </div>
+
+            <div class="card-footer">
+                <span>Empowering Learners</span>
+                <span>07 / 07</span>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        // 單張卡片下載功能
+        async function downloadSingleCard(cardId, fileName) {
+            const card = document.getElementById(cardId);
+            const downloadBtn = card.querySelector('.btn-card-download');
+            
+            // 隱藏下載按鈕以免被拍進圖裡
+            downloadBtn.style.visibility = 'hidden';
+
+            try {
+                const canvas = await html2canvas(card, {
+                    scale: 3, // 高解析度產出 (相當於 1080p+)
+                    useCORS: true,
+                    backgroundColor: '#FAF8F5'
+                });
+
+                const image = canvas.toDataURL("image/png");
+                const link = document.createElement('a');
+                link.href = image;
+                link.download = fileName;
+                link.click();
+            } catch (err) {
+                console.error('圖片下載失敗:', err);
+            } finally {
+                downloadBtn.style.visibility = 'visible';
+            }
+        }
+
+        // 一鍵下載全部 7 張圖
+        document.getElementById('downloadAllBtn').addEventListener('click', async function() {
+            const btn = this;
+            const originalText = btn.innerHTML;
+            btn.disabled = true;
+            btn.innerHTML = `<i class="fa-solid fa-spinner fa-spin"></i> 正在打包圖片...`;
+
+            const cardIds = [
+                { id: 'card-1', name: '01_ADHD_封面.png' },
+                { id: 'card-2', name: '02_極端專注力模式.png' },
+                { id: 'card-3', name: '03_工作記憶障礙.png' },
+                { id: 'card-4', name: '04_時間感缺失.png' },
+                { id: 'card-5', name: '05_高昂精神消耗.png' },
+                { id: 'card-6', name: '06_潛在學習優勢.png' },
+                { id: 'card-7', name: '07_總結與行動指南.png' }
+            ];
+
+            for (let i = 0; i < cardIds.length; i++) {
+                btn.innerHTML = `<i class="fa-solid fa-spinner fa-spin"></i> 下載第 ${i+1}/7 張...`;
+                await downloadSingleCard(cardIds[i].id, cardIds[i].name);
+                // 稍微延遲避免瀏覽器阻擋連續下載
+                await new Promise(resolve => setTimeout(resolve, 600));
+            }
+
+            btn.disabled = false;
+            btn.innerHTML = originalText;
+        });
+    </script>
+</body>
+</html>
+
